@@ -1,4 +1,4 @@
-﻿using LocalNews.Views;
+using LocalNews.Views;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
