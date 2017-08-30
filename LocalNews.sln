@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalNews", "LocalNews\Loca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalNews.iOS", "LocalNews\LocalNews.iOS\LocalNews.iOS.csproj", "{95FECEF6-C73B-4FED-B3A0-05154DF7A768}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalNews.Droid", "LocalNews\LocalNews.Droid\LocalNews.Droid.csproj", "{003FB81A-EFF0-4166-AFDB-22ABE18FC8EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalNews.Droid", "LocalNews\LocalNews.Android\LocalNews.Android.csproj", "{003FB81A-EFF0-4166-AFDB-22ABE18FC8EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalNews.WinPhone", "LocalNews\LocalNews.WinPhone\LocalNews.WinPhone.csproj", "{D94F158D-0898-4636-9F03-E0CA27FF9E0C}"
 EndProject
