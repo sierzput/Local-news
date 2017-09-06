@@ -9,7 +9,6 @@
     <None Remove="Views\AboutPage.xaml" />
     <None Remove="Views\ItemDetailPage.xaml" />
     <None Remove="Views\ItemsPage.xaml" />
-    <None Remove="Views\NewItemPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +18,6 @@
     <EmbeddedResource Include="Views\AboutPage.xaml" />
     <EmbeddedResource Include="Views\ItemDetailPage.xaml" />
     <EmbeddedResource Include="Views\ItemsPage.xaml" />
-    <EmbeddedResource Include="Views\NewItemPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>

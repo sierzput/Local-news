@@ -1,13 +1,13 @@
-﻿using LocalNews.Models;
+using LocalNews.Models;
 
 namespace LocalNews.ViewModels
 {
     public class ItemDetailViewModel : BaseViewModel
     {
-        public Item Item { get; set; }
-        public ItemDetailViewModel(Item item = null)
+        public NewsListItem Item { get; set; }
+        public ItemDetailViewModel(NewsListItem item = null)
         {
-            Title = item.Text;
+            Title = item.Title;
             Item = item;
         }
 

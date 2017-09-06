@@ -1,32 +1,22 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
 using LocalNews.Helpers;
 using LocalNews.Models;
-using LocalNews.Views;
-
 using Xamarin.Forms;
 
 namespace LocalNews.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableRangeCollection<Item> Items { get; set; }
+        public ObservableRangeCollection<NewsListItem> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableRangeCollection<Item>();
+            Items = new ObservableRangeCollection<NewsListItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
-            {
-                var _item = item as Item;
-                Items.Add(_item);
-                await DataStore.AddItemAsync(_item);
-            });
         }
 
         async Task ExecuteLoadItemsCommand()

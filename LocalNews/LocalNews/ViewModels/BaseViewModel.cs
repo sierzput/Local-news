@@ -1,7 +1,6 @@
-﻿using LocalNews.Helpers;
+using LocalNews.Helpers;
 using LocalNews.Models;
 using LocalNews.Services;
-
 using Xamarin.Forms;
 
 namespace LocalNews.ViewModels
@@ -11,7 +10,7 @@ namespace LocalNews.ViewModels
         /// <summary>
         /// Get the azure service instance
         /// </summary>
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<NewsListItem> DataStore => DependencyService.Get<IDataStore<NewsListItem>>();
 
         bool isBusy = false;
         public bool IsBusy
