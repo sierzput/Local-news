@@ -28,4 +28,8 @@
     <PackageReference Include="XLabs.IoC.Ninject" Version="2.0.5782" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Ninject.Extensions.Factory\Ninject.Extensions.Factory.csproj" />
+  </ItemGroup>
+
 </Project>
