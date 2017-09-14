@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LocalNews.Models;
-using Xamarin.Forms;
 
-[assembly: Dependency(typeof(LocalNews.Services.NewsService))]
 namespace LocalNews.Services
 {
     public class NewsService : IDataStore<NewsListItem>
     {
         private bool _isInitialized;
         private List<NewsListItem> _items;
+        private readonly INewsDownloader _newsDownloader;
+
+        public NewsService(INewsDownloader newsDownloader)
+        {
+            _newsDownloader = newsDownloader;
+        }
 
         public async Task<NewsListItem> GetItemAsync(string id)
         {
