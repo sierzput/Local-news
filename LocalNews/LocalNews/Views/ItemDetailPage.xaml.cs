@@ -4,8 +4,6 @@ namespace LocalNews.Views
 {
     public partial class ItemDetailPage
     {
-        private ItemDetailViewModel _viewModel;
-
         // Note - The Xamarin.Forms Previewer requires a default, parameterless constructor to render a page.
         public ItemDetailPage()
         {
@@ -16,7 +14,7 @@ namespace LocalNews.Views
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = viewModel;
+            BindingContext = viewModel;
         }
     }
 }

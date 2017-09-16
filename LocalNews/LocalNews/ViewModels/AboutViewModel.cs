@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.Windows.Input;
+using LocalNews.Models;
+using LocalNews.Services;
 using Xamarin.Forms;
 
 namespace LocalNews.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
-        public AboutViewModel()
+        public AboutViewModel(IDataStore<NewsListItem> dataStore) : base(dataStore)
         {
             Title = "About";
 

@@ -1,7 +1,6 @@
 using LocalNews.Helpers;
 using LocalNews.Models;
 using LocalNews.Services;
-using Ninject;
 
 namespace LocalNews.ViewModels
 {
@@ -10,8 +9,12 @@ namespace LocalNews.ViewModels
         /// <summary>
         /// Get the azure service instance
         /// </summary>
-        [Inject]
         public IDataStore<NewsListItem> DataStore { get; }
+
+        public BaseViewModel(IDataStore<NewsListItem> dataStore)
+        {
+            DataStore = dataStore;
+        }
 
         private bool _isBusy = false;
         public bool IsBusy

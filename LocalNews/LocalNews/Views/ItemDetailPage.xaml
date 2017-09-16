@@ -6,6 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:viewModels="clr-namespace:LocalNews.ViewModels;assembly=LocalNews"
+             d:DataContext="{d:DesignInstance viewModels:ItemsViewModel}"
              Title="{Binding Title}">
 	<StackLayout Spacing="20" Padding="15" d:DataContext="{d:DesignInstance viewModels:ItemDetailViewModel}">
 		<Label Text="{Binding Item.Title}" FontSize="Medium"/>

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using LocalNews.Helpers;
 using LocalNews.Models;
+using LocalNews.Services;
 using Xamarin.Forms;
 
 namespace LocalNews.ViewModels
@@ -12,7 +13,7 @@ namespace LocalNews.ViewModels
         public ObservableRangeCollection<NewsListItem> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ItemsViewModel()
+        public ItemsViewModel(IDataStore<NewsListItem> dataStore) : base(dataStore)
         {
             Title = "Browse";
             Items = new ObservableRangeCollection<NewsListItem>();
@@ -35,12 +36,12 @@ namespace LocalNews.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                MessagingCenter.Send(new MessagingCenterAlert
+                MessagingCenter.Send(Application.Current, "error", new MessagingCenterAlert
                 {
                     Title = "Error",
-                    Message = "Unable to load items.",
+                    Message = "Unable to load items. \n" + ex,
                     Cancel = "OK"
-                }, "message");
+                });
             }
             finally
             {
