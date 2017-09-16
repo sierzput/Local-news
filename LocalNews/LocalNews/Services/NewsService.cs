@@ -36,6 +36,7 @@ namespace LocalNews.Services
             if (_isInitialized)
                 return;
 
+            _newsDownloader.Download();
             _items = new List<NewsListItem>();
             var items = new List<NewsListItem>
             {
