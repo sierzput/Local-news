@@ -9,12 +9,14 @@ namespace LocalNews.Services
     public class NewsService : IDataStore<NewsListItem>
     {
         private bool _isInitialized;
-        private List<NewsListItem> _items;
+        private IEnumerable<NewsListItem> _items;
         private readonly INewsDownloader _newsDownloader;
+        private readonly IKurierParser _kurierParser;
 
-        public NewsService(INewsDownloader newsDownloader)
+        public NewsService(INewsDownloader newsDownloader, IKurierParser kurierParser)
         {
             _newsDownloader = newsDownloader;
+            _kurierParser = kurierParser;
         }
 
         public async Task<NewsListItem> GetItemAsync(string id)
@@ -27,6 +29,10 @@ namespace LocalNews.Services
         public async Task<IEnumerable<NewsListItem>> GetItemsAsync(bool forceRefresh = false)
         {
             await InitializeAsync();
+            if (forceRefresh)
+            {
+                await RefreshListAsync();
+            }
 
             return await Task.FromResult(_items);
         }
@@ -36,8 +42,6 @@ namespace LocalNews.Services
             if (_isInitialized)
                 return;
 
-            _newsDownloader.Download();
-            _items = new List<NewsListItem>();
             var items = new List<NewsListItem>
             {
                 new NewsListItem { Id = Guid.NewGuid().ToString(), Title = "Buy some cat food", Summary="The cats are hungry"},
@@ -47,13 +51,15 @@ namespace LocalNews.Services
                 new NewsListItem { Id = Guid.NewGuid().ToString(), Title = "Complete holiday shopping", Summary="Keep it a secret!"},
                 new NewsListItem { Id = Guid.NewGuid().ToString(), Title = "Finish a todo list", Summary="Done"},
             };
-
-            foreach (NewsListItem item in items)
-            {
-                _items.Add(item);
-            }
+            _items = await Task.FromResult(items);
 
             _isInitialized = true;
+        }
+
+        private async Task RefreshListAsync()
+        {
+            var htmlDocument = await _newsDownloader.DownloadAsync();
+            _items = _kurierParser.Parse(htmlDocument);
         }
     }
 }

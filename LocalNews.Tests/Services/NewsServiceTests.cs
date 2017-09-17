@@ -1,29 +1,44 @@
+using HtmlAgilityPack;
 using LocalNews.Services;
+using LocalNews.Tests.Helpers;
 using Moq;
 using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.AutoMoq;
 using Xunit;
 
 namespace LocalNews.Tests.Services
 {
-    public class NewsServiceTests
+    public class NewsServiceTests : TestsBase
     {
-        private readonly IFixture _fixture;
+        private readonly NewsService _sut;
 
         public NewsServiceTests()
         {
-            _fixture = new Fixture().Customize(new AutoMoqCustomization());
+            _sut = Fixture.CreateWithFrozen<NewsService>();
         }
 
         [Fact]
-        public async void GetItemsFromDownloaderAsync()
+        public async void GetHtmlFromDownloaderAsync()
         {
-            var downloader = _fixture.Freeze<Mock<INewsDownloader>>();
-            var sut = _fixture.Create<NewsService>();
+            var downloader = Fixture.Mock<INewsDownloader>();
 
-            await sut.GetItemsAsync();
+            await _sut.GetItemsAsync();
 
-            downloader.Verify(d => d.Download());
+            downloader.Verify(d => d.DownloadAsync());
+        }
+
+        [Fact]
+        public async void ParseHtmlFromDownloaderAsync()
+        {
+            var htmlDocument = Fixture.Create<HtmlDocument>();
+            var parser = Fixture.Mock<IKurierParser>();
+
+            Fixture.Mock<INewsDownloader>()
+                .Setup(d => d.DownloadAsync())
+                .ReturnsAsync(htmlDocument);
+
+            await _sut.GetItemsAsync();
+
+            parser.Verify(p => p.Parse(htmlDocument));
         }
     }
 }

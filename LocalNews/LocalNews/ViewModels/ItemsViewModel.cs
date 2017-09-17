@@ -17,10 +17,10 @@ namespace LocalNews.ViewModels
         {
             Title = "Browse";
             Items = new ObservableRangeCollection<NewsListItem>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommandAsync());
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async Task ExecuteLoadItemsCommandAsync()
         {
             if (IsBusy)
                 return;
@@ -30,7 +30,10 @@ namespace LocalNews.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await DataStore.GetItemsAsync();
+                Items.ReplaceRange(items);
+
+                items = await DataStore.GetItemsAsync(forceRefresh: true);
                 Items.ReplaceRange(items);
             }
             catch (Exception ex)
