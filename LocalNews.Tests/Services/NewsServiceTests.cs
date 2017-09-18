@@ -17,13 +17,23 @@ namespace LocalNews.Tests.Services
         }
 
         [Fact]
-        public async void GetHtmlFromDownloaderAsync()
+        public async void GetHtmlFromDownloaderWhenForceRefreshAsync()
         {
             var downloader = Fixture.Mock<INewsDownloader>();
 
-            await _sut.GetItemsAsync();
+            await _sut.GetItemsAsync(forceRefresh: true);
 
             downloader.Verify(d => d.DownloadAsync());
+        }
+
+        [Fact]
+        public async void DoNotGetHtmlFromDownloaderWhenNotForceRefreshAsync()
+        {
+            var downloader = Fixture.Mock<INewsDownloader>();
+
+            await _sut.GetItemsAsync(forceRefresh: false);
+
+            downloader.Verify(d => d.DownloadAsync(), Times.Never());
         }
 
         [Fact]
@@ -36,7 +46,7 @@ namespace LocalNews.Tests.Services
                 .Setup(d => d.DownloadAsync())
                 .ReturnsAsync(htmlDocument);
 
-            await _sut.GetItemsAsync();
+            await _sut.GetItemsAsync(forceRefresh: true);
 
             parser.Verify(p => p.Parse(htmlDocument));
         }
