@@ -16,7 +16,7 @@ namespace LocalNews.Services
                 var title = node.SelectSingleNode("h1").InnerText;
                 var publicationDate = node.SelectSingleNode("div[@class='meta']/h2").LastChild.InnerText;
                 var detailsLink = node.SelectSingleNode("a").GetAttributeValue("href", "");
-                var summary = node.SelectSingleNode("p").InnerText;
+                var summary = HtmlEntity.DeEntitize(node.SelectSingleNode("p").InnerText);
                 var item = new NewsListItem
                 {
                     Title = title,
@@ -25,7 +25,6 @@ namespace LocalNews.Services
                     Summary = summary
                 };
                 items.Add(item);
-
             }
             return items;
         }

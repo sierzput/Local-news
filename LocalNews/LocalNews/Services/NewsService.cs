@@ -12,6 +12,7 @@ namespace LocalNews.Services
         private IEnumerable<NewsListItem> _items;
         private readonly IHtmlDocumentDownloader _downloader;
         private readonly IKurierPageParser _kurierPageParser;
+        private const string KurierUrl = "http://www.kurierbytowski.com.pl/kurier/category/aktualnosci/";
 
         public NewsService(IHtmlDocumentDownloader downloader, IKurierPageParser kurierPageParser)
         {
@@ -58,8 +59,7 @@ namespace LocalNews.Services
 
         private async Task RefreshListAsync()
         {
-            var kurierUrl = "http://www.kurierbytowski.com.pl/kurier/category/aktualnosci/";
-            var htmlDocument = await _downloader.DownloadAsync(kurierUrl);
+            var htmlDocument = await _downloader.DownloadAsync(KurierUrl);
             _items = _kurierPageParser.Parse(htmlDocument);
         }
     }
