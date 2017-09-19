@@ -18,7 +18,7 @@ namespace LocalNews.Tests.Services
         public KurierPageParserTests()
         {
             var currentDirectory = Directory.GetCurrentDirectory();
-            var url = Path.Combine(currentDirectory, "../../../../default_page.html");
+            var url = Path.Combine(currentDirectory, "../../../test_page.html");
 
             _htmlDocument = new HtmlWeb().Load(url);
             _sut = Fixture.Create<KurierPageParser>();
