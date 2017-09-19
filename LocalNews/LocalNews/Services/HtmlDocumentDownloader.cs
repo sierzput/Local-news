@@ -3,11 +3,10 @@ using HtmlAgilityPack;
 
 namespace LocalNews.Services
 {
-    public class NewsDownloader : INewsDownloader
+    public class HtmlDocumentDownloader : IHtmlDocumentDownloader
     {
-        public async Task<HtmlDocument> DownloadAsync()
+        public async Task<HtmlDocument> DownloadAsync(string url)
         {
-            var url = "http://www.kurierbytowski.com.pl/kurier/category/aktualnosci/";
             var web = new HtmlWeb();
             var document = await web.LoadFromWebAsync(url);
             return document;

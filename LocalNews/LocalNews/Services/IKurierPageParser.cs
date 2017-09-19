@@ -4,7 +4,7 @@ using LocalNews.Models;
 
 namespace LocalNews.Services
 {
-    public interface IKurierParser
+    public interface IKurierPageParser
     {
         IEnumerable<NewsListItem> Parse(HtmlDocument htmlDocument);
     }

@@ -10,8 +10,8 @@ namespace LocalNews.Ioc
         public override void Load()
         {
             RegisterTransient<IDataStore<NewsListItem>, NewsService>();
-            RegisterTransient<INewsDownloader, NewsDownloader>();
-            RegisterTransient<IKurierParser, KurierParser>();
+            RegisterTransient<IHtmlDocumentDownloader, HtmlDocumentDownloader>();
+            RegisterTransient<IKurierPageParser, KurierPageParser>();
             RegisterTransient<ItemsViewModel>();
             RegisterTransient<ItemsPage>();
             RegisterTransient<IItemDetailViewModelFactory, ItemDetailViewModelFactory>();
