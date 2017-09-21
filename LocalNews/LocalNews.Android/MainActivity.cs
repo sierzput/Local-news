@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using JetBrains.Annotations;
 using LocalNews.Ioc;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 namespace LocalNews.Droid
@@ -19,7 +20,7 @@ namespace LocalNews.Droid
             IocConfiguration.Configure();
 
             base.OnCreate(bundle);
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            Forms.Init(this, bundle);
 
             LoadApplication(new App());
         }
