@@ -6,22 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="App.xaml" />
-    <None Remove="Views\AboutPage.xaml" />
-    <None Remove="Views\ItemDetailPage.xaml" />
-    <None Remove="Views\ItemsPage.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="App.xaml">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\AboutPage.xaml" />
-    <EmbeddedResource Include="Views\ItemDetailPage.xaml" />
-    <EmbeddedResource Include="Views\ItemsPage.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.1.1" />
     <PackageReference Include="HtmlAgilityPack" Version="1.5.5" />
     <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
