@@ -1,21 +1,22 @@
-﻿using LocalNews.Models;
+using LocalNews.Models;
+using LocalNews.Services;
 
 namespace LocalNews.ViewModels
 {
     public class ItemDetailViewModel : BaseViewModel
     {
-        public Item Item { get; set; }
-        public ItemDetailViewModel(Item item = null)
+        public NewsListItem Item { get; set; }
+        public ItemDetailViewModel(NewsListItem item, IDataStore<NewsListItem> dataStore) : base(dataStore)
         {
-            Title = item.Text;
+            Title = item.Title;
             Item = item;
         }
 
-        int quantity = 1;
+        private int _quantity = 1;
         public int Quantity
         {
-            get { return quantity; }
-            set { SetProperty(ref quantity, value); }
+            get { return _quantity; }
+            set { SetProperty(ref _quantity, value); }
         }
     }
 }

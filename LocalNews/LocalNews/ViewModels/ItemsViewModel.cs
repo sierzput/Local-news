@@ -1,35 +1,26 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
 using LocalNews.Helpers;
 using LocalNews.Models;
-using LocalNews.Views;
-
+using LocalNews.Services;
 using Xamarin.Forms;
 
 namespace LocalNews.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableRangeCollection<Item> Items { get; set; }
+        public ObservableRangeCollection<NewsListItem> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ItemsViewModel()
+        public ItemsViewModel(IDataStore<NewsListItem> dataStore) : base(dataStore)
         {
             Title = "Browse";
-            Items = new ObservableRangeCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
-            {
-                var _item = item as Item;
-                Items.Add(_item);
-                await DataStore.AddItemAsync(_item);
-            });
+            Items = new ObservableRangeCollection<NewsListItem>();
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommandAsync());
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async Task ExecuteLoadItemsCommandAsync()
         {
             if (IsBusy)
                 return;
@@ -39,18 +30,21 @@ namespace LocalNews.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await DataStore.GetItemsAsync();
+                Items.ReplaceRange(items);
+
+                items = await DataStore.GetItemsAsync(forceRefresh: true);
                 Items.ReplaceRange(items);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                MessagingCenter.Send(new MessagingCenterAlert
+                MessagingCenter.Send(Application.Current, "error", new MessagingCenterAlert
                 {
                     Title = "Error",
-                    Message = "Unable to load items.",
+                    Message = "Unable to load items. \n" + ex,
                     Cancel = "OK"
-                }, "message");
+                });
             }
             finally
             {

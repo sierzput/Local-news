@@ -1,7 +1,7 @@
 using LocalNews.Views;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XLabs.Ioc;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace LocalNews
@@ -15,21 +15,21 @@ namespace LocalNews
             SetMainPage();
         }
 
-        public static void SetMainPage()
+        private void SetMainPage()
         {
             Current.MainPage = new TabbedPage
             {
                 Children =
                 {
-                    new NavigationPage(new ItemsPage())
+                    new NavigationPage(Resolver.Resolve<ItemsPage>())
                     {
                         Title = "Browse",
-                        Icon = Device.OnPlatform("tab_feed.png",null,null)
+                        Icon = Device.OnPlatform("tab_feed.png", null, null)
                     },
-                    new NavigationPage(new AboutPage())
+                    new NavigationPage(Resolver.Resolve<AboutPage>())
                     {
                         Title = "About",
-                        Icon = Device.OnPlatform("tab_about.png",null,null)
+                        Icon = Device.OnPlatform("tab_about.png", null, null)
                     },
                 }
             };

@@ -2,12 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LocalNews.Views.AboutPage"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
              xmlns:vm="clr-namespace:LocalNews.ViewModels;"
+             d:DataContext="{d:DesignInstance vm:AboutViewModel}"
              Title="{Binding Title}">
-  <ContentPage.BindingContext>
-    <vm:AboutViewModel />
-  </ContentPage.BindingContext>
-  <Grid>
+    <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>

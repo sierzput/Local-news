@@ -1,46 +1,66 @@
-﻿using System;
-
+using JetBrains.Annotations;
+using LocalNews.Helpers;
 using LocalNews.Models;
 using LocalNews.ViewModels;
-
 using Xamarin.Forms;
 
 namespace LocalNews.Views
 {
-    public partial class ItemsPage : ContentPage
+    public partial class ItemsPage
     {
-        ItemsViewModel viewModel;
+        private readonly ItemsViewModel _viewModel;
+        private readonly IItemDetailViewModelFactory _detailViewModelFactory;
 
+        // Note - The Xamarin.Forms Previewer requires a default, parameterless constructor to render a page.
         public ItemsPage()
         {
             InitializeComponent();
-
-            BindingContext = viewModel = new ItemsViewModel();
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        [UsedImplicitly]
+        public ItemsPage(ItemsViewModel viewModel, IItemDetailViewModelFactory detailViewModelFactory)
         {
-            var item = args.SelectedItem as Item;
-            if (item == null)
+            _viewModel = viewModel;
+            _detailViewModelFactory = detailViewModelFactory;
+            InitializeComponent();
+
+            BindingContext = _viewModel;
+        }
+
+        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        {
+            if (!(args.SelectedItem is NewsListItem item))
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            var viewModel = _detailViewModelFactory.Create(item);
+            var itemDetailPage = new ItemDetailPage(viewModel);
+            await Navigation.PushAsync(itemDetailPage);
 
             // Manually deselect item
             ItemsListView.SelectedItem = null;
         }
 
-        async void AddItem_Clicked(object sender, EventArgs e)
+        private async void DisplayAlertAsync(Application application, MessagingCenterAlert alert)
         {
-            await Navigation.PushAsync(new NewItemPage());
+            await DisplayAlert(alert.Title, alert.Message, alert.Cancel);
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            MessagingCenter.Subscribe<Application, MessagingCenterAlert>(Application.Current, "error", DisplayAlertAsync);
+
+            if (_viewModel.Items.Count == 0)
+            {
+                _viewModel.LoadItemsCommand.Execute(null);
+            }
+        }
+
+        protected override void OnDisappearing()
+        {
+            MessagingCenter.Unsubscribe<Application, MessagingCenterAlert>(Application.Current, "error");
+            base.OnDisappearing();
         }
     }
 }
