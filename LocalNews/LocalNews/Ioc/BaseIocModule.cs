@@ -1,22 +1,10 @@
 using System;
-using Ninject.Extensions.Factory;
 using Ninject.Modules;
 
 namespace LocalNews.Ioc
 {
     public abstract class BaseIocModule : NinjectModule
     {
-        protected void RegisterFactory<TFactory>() where TFactory : class
-        {
-            Bind<TFactory>().ToFactory();
-        }
-
-        protected void RegisterSmartFactory<TFactory>() where TFactory : class
-        {
-            var instanceProvider = new ConcreteTypesFactoryInstanceProvider<TFactory>();
-            Bind<TFactory>().ToFactory(() => instanceProvider);
-        }
-
         protected void RegisterTransient<TImplementation>() where TImplementation : class
         {
             Bind<TImplementation>().ToSelf().InTransientScope();
