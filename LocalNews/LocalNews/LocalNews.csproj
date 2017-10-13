@@ -10,15 +10,12 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.5.5" />
     <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1" />
+    <PackageReference Include="Ninject.Extensions.Factory" Version="3.3.0" />
     <PackageReference Include="Portable.Ninject" Version="3.3.1" />
     <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
     <PackageReference Include="XLabs.Forms" Version="2.0.5782" />
     <PackageReference Include="XLabs.IoC" Version="2.0.5782" />
     <PackageReference Include="XLabs.IoC.Ninject" Version="2.0.5782" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Ninject.Extensions.Factory\Ninject.Extensions.Factory.csproj" />
   </ItemGroup>
 
 </Project>
