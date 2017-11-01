@@ -6,10 +6,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:viewModels="clr-namespace:LocalNews.ViewModels;assembly=LocalNews"
-             d:DataContext="{d:DesignInstance viewModels:ItemsViewModel}"
+             d:DataContext="{d:DesignInstance viewModels:ItemDetailViewModel}"
              Title="{Binding Title}">
-	<StackLayout Spacing="20" Padding="15" d:DataContext="{d:DesignInstance viewModels:ItemDetailViewModel}">
+	<StackLayout Spacing="20" Padding="15">
 		<Label Text="{Binding Item.Title}" FontSize="Medium"/>
         <Label Text="{Binding Item.Summary}" FontSize="Small"/>
-    </StackLayout>
+        <Label Text="{Binding Item.PublicationDate}" FontSize="Small"/>
+        <Image Source="{Binding Item.Thumbnail}" IsVisible="{Binding Item.Thumbnail, Converter={StaticResource ObjectRefToBoolConverter}}"/>
+	</StackLayout>
 </ContentPage>

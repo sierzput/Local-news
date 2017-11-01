@@ -11,12 +11,5 @@ namespace LocalNews.ViewModels
             Title = item.Title;
             Item = item;
         }
-
-        private int _quantity = 1;
-        public int Quantity
-        {
-            get { return _quantity; }
-            set { SetProperty(ref _quantity, value); }
-        }
     }
 }
