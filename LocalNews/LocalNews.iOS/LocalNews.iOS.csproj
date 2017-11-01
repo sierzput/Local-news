@@ -118,7 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LocalNews\LocalNews.csproj">
-      <Project>{1417ba92-ec94-4ccb-b038-88c9d0a18af4}</Project>
+      <Project>{2ab756fc-97bc-469e-aaad-8feb629e81ce}</Project>
       <Name>LocalNews</Name>
     </ProjectReference>
   </ItemGroup>
