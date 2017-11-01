@@ -32,6 +32,8 @@
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="13"/>
+                                <Image Source="{Binding Thumbnail}"
+                                       IsVisible="{Binding Thumbnail, Converter={StaticResource ObjectRefToBoolConverter}}" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

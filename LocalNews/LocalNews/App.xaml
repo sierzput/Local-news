@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="LocalNews.App">
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:XLabs.Forms.Converter;assembly=XLabs.Forms"
+             x:Class="LocalNews.App">
   <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="Primary">#2196F3</Color>
@@ -14,6 +17,7 @@
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
+            <converter:ObjectRefToBooleanConverter x:Key="ObjectRefToBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
