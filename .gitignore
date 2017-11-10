@@ -263,3 +263,6 @@ __pycache__/
 
 # Notepad++ backups #
 *.bak
+
+# Android auto-generated resource file
+**/Resources/Resource.Designer.cs
