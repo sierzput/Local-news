@@ -48,6 +48,24 @@ namespace LocalNews.Tests.Services
             ShouldHaveCorrectTextFields(actual, expected);
         }
 
+        [Fact]
+        public void ReturnElementsWithEmptyThumbnailLinkIfDoesNotExist()
+        {
+            var actual = _sut.Parse(_htmlDocument).First();
+
+            actual.Thumbnail.Should().BeNullOrEmpty();
+        }
+
+        [Fact]
+        public void ReturnElementsWithCorrectThumbnailLinkIfExists()
+        {
+            var expected = "http://www.kurierbytowski.com.pl/kurier/wp-content/uploads/2017/09/189-330x185.jpg";
+
+            var actual = _sut.Parse(_htmlDocument).Skip(1).First();
+
+            actual.Thumbnail.Should().Be(expected);
+        }
+
         private void ShouldHaveCorrectTextFields(NewsListItem actual, NewsListItem expected)
         {
             actual.Title.Should().Be(expected.Title);

@@ -17,12 +17,18 @@ namespace LocalNews.Services
                 var publicationDate = node.SelectSingleNode("div[@class='meta']/h2").LastChild.InnerText;
                 var detailsLink = node.SelectSingleNode("a").GetAttributeValue("href", "");
                 var summary = HtmlEntity.DeEntitize(node.SelectSingleNode("p").InnerText);
+                var thumbnailLink = node
+                    .SelectSingleNode("div[contains(@class, 'thumb_gallery')]")
+                    ?.SelectSingleNode("ul[@class='slides']/li[1]/img")
+                    ?.GetAttributeValue("src", "");
+
                 var item = new NewsListItem
                 {
                     Title = title,
                     PublicationDate = publicationDate,
                     DetailsLink = detailsLink,
-                    Summary = summary
+                    Summary = summary,
+                    Thumbnail = thumbnailLink,
                 };
                 items.Add(item);
             }
