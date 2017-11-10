@@ -6,12 +6,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:viewModels="clr-namespace:LocalNews.ViewModels;assembly=LocalNews"
+             xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
              d:DataContext="{d:DesignInstance viewModels:ItemDetailViewModel}"
              Title="{Binding Title}">
-	<StackLayout Spacing="20" Padding="15">
-		<Label Text="{Binding Item.Title}" FontSize="Medium"/>
-        <Label Text="{Binding Item.Summary}" FontSize="Small"/>
-        <Label Text="{Binding Item.PublicationDate}" FontSize="Small"/>
-        <Image Source="{Binding Item.Thumbnail}" IsVisible="{Binding Item.Thumbnail, Converter={StaticResource ObjectRefToBoolConverter}}"/>
-	</StackLayout>
+    <ScrollView Padding="15">
+        <StackLayout>
+            <Label Text="{Binding Item.Title}" FontSize="Medium" />
+            <Label Text="{Binding Item.PublicationDate}" FontSize="Micro" HorizontalTextAlignment="End" />
+            <Label Text="{Binding Item.Summary}" FontSize="Small" />
+            <forms:CarouselView ItemsSource="{Binding Images}">
+                <forms:CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Aspect="AspectFit" Source="{Binding .}"></Image>
+                    </DataTemplate>
+                </forms:CarouselView.ItemTemplate>
+            </forms:CarouselView>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
